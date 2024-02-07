@@ -1,2 +1,6 @@
 - Add position of the user
 - Add scrollable tasks
+- Remove key from log (constant tasks)
+- Existing task re-activation
+- Prettify display
+- Resize log textbox

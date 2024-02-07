@@ -16,7 +16,7 @@ class LogFrame(customtkinter.CTkFrame):
         self.add_buttons()
 
     def display_log(self):
-        text = customtkinter.CTkTextbox(master=self, width=100, height=180)
+        text = customtkinter.CTkTextbox(master=self)
         text.grid(row=1, column=0, padx=(10, 10), pady=10, sticky='news', columnspan=len(self.values))
         today = datetime.datetime.now().strftime('%Y-%m-%d')
         yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')

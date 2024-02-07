@@ -1,6 +1,7 @@
 import customtkinter
 import datetime
-import os
+from variables import *
+import json
 
 
 class Task:
@@ -14,17 +15,23 @@ class Task:
         self.key = key
         self.pady = pady
 
-        self.log = os.path.join('..', 'data', 'log')
         self.add_button()
 
     def add_button(self):
         button = customtkinter.CTkButton(master=self.frame, text=self.name, command=self.action)
         button.grid(row=self.row, column=self.column, padx=10, pady=self.pady, sticky='news')
         if self.key is not None:
-            self.master.bind(sequence=self.key, func=lambda event: self.action())
+            self.master.bind(sequence=f'<Control-{self.key}>', func=lambda event: self.action())
 
     def action(self):
         text = f'{datetime.datetime.now()} | {self.name}'
         print(text)
-        with open(self.log, 'a') as log:
+        with open(LOG_PATH, 'a') as log:
             log.write(text + '\n')
+
+    def deactivate(self):
+        with open(TASKS_PATH, 'r+') as file:
+            data = json.load(file)
+            data['temporary'][self.name]['active'] = False
+            file.seek(0)
+            json.dump(data, file, indent=4)

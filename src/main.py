@@ -3,7 +3,7 @@ import os
 from variables import *
 import json
 
-from frame import ConstantFrame, TemporaryFrame
+from frame import ConstantFrame, TemporaryFrame, EntryFrame
 from log_frame import LogFrame
 
 
@@ -22,7 +22,7 @@ class TaskManager(customtkinter.CTk):
         self.set_path()
 
         self.log_frame = LogFrame(self)
-        self.log_frame.grid(row=0, column=1, padx=(0, 0), pady=(10, 0), sticky='nsew')
+        self.log_frame.grid(row=0, column=1, padx=(0, 0), pady=(10, 0), sticky='nsew', rowspan=2)
 
         self.constant, self.temporary = self.get_tasks()
         self.display_buttons()
@@ -43,9 +43,8 @@ class TaskManager(customtkinter.CTk):
         # logo_label.grid(row=0, column=1, padx=0, pady=(30, 10))
 
     def bind_keys(self):
-        self.bind('u', lambda event: self.log_frame.display_log())  # TODO: Auto-update?
-        self.bind('e', lambda event: self.exit())
-        self.bind('q', lambda event: self.exit())
+        self.bind('<Alt-u>', lambda event: self.update())  # TODO: Auto-update?
+        self.bind('<Escape>', lambda event: self.exit())
 
     @staticmethod
     def get_tasks():
@@ -58,13 +57,19 @@ class TaskManager(customtkinter.CTk):
     def display_tasks(self):
         ConstantFrame(master=self, tasks=self.constant)
         TemporaryFrame(master=self, names=self.temporary)
+        EntryFrame(master=self)
+
+    def update(self):
+        self.log_frame.display_log()
+        self.constant, self.temporary = self.get_tasks()
+        self.display_tasks()
 
     def display_buttons(self):
-        exit_button = customtkinter.CTkButton(self, text='Exit', command=self.exit, fg_color='firebrick')
-        exit_button.grid(row=3, column=2, padx=10, pady=10)
-        update_button = customtkinter.CTkButton(self, text='Update log',
-                                                command=self.log_frame.display_log, fg_color='olivedrab')
-        update_button.grid(row=3, column=0, padx=10, pady=10)
+        exit_button = customtkinter.CTkButton(self, text='Exit (Esc)', command=self.exit, fg_color='firebrick')
+        exit_button.grid(row=3, column=2, padx=(10, 10), pady=(10, 10), sticky='news')
+        update_button = customtkinter.CTkButton(self, text='Update (Alt+U)',
+                                                command=self.update, fg_color='olivedrab')
+        update_button.grid(row=3, column=0, padx=(10, 10), pady=(10, 10), sticky='news')
 
     @staticmethod
     def exit():
