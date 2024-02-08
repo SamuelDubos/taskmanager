@@ -68,3 +68,4 @@ class EntryFrame(customtkinter.CTkFrame):
             data['temporary'][self.entry.get()] = {'active': True}
             file.seek(0)
             json.dump(data, file, indent=4)
+            file.truncate()
