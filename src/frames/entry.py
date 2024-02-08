@@ -1,6 +1,7 @@
 import customtkinter
-from ..loader import *
 import json
+
+from ..loader import *
 
 
 class EntryFrame(customtkinter.CTkFrame):

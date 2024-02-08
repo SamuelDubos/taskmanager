@@ -39,7 +39,7 @@ class TaskManager(customtkinter.CTk):
                     pass
 
     def bind_keys(self):
-        self.bind('<Alt-u>', lambda event: self.update())  # TODO: Auto-update?
+        self.bind('<Alt-u>', lambda event: self.update())
         self.bind('<Escape>', lambda event: self.exit())
 
     @staticmethod

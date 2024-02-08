@@ -1,6 +1,6 @@
 import customtkinter
+
 from ..task import Task
-from ..loader import *
 
 
 class ConstantFrame(customtkinter.CTkFrame):
