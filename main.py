@@ -15,34 +15,27 @@ class TaskManager(customtkinter.CTk):
         super().__init__()
 
         self.geometry('880x420')
-        self.add_title()
+        self.title('TaskManager')
+
+        self.set_configuration()
+        self.set_data()
+        self.constant, self.temporary = self.get_tasks()
+        self.display_buttons()
+        self.add_frames()
+        self.bind_keys()
+
+    def set_configuration(self):
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=4)
         self.grid_columnconfigure(2, weight=2)
         self.grid_rowconfigure(1, weight=1)
 
-        self.set_path()
-
-        self.log_frame = LogFrame(self)
-        self.log_frame.grid(row=0, column=1, padx=(0, 0), pady=(10, 0), sticky='nsew', rowspan=2)
-
-        self.constant, self.temporary = self.get_tasks()
-        self.display_buttons()
-        self.display_tasks()
-        self.bind_keys()
-
     @staticmethod
-    def set_path():
+    def set_data():
         for path in [TASKS_PATH, LOG_PATH]:
             if not os.path.exists(path):
                 with open(path, 'w') as _:
                     pass
-
-    def add_title(self):  # TODO: Remove?
-        self.title('TaskManager')
-        # logo_label = customtkinter.CTkLabel(self, text='Task Manager',
-        #                                     font=customtkinter.CTkFont(size=24, weight='bold'))
-        # logo_label.grid(row=0, column=1, padx=0, pady=(30, 10))
 
     def bind_keys(self):
         self.bind('<Alt-u>', lambda event: self.update())  # TODO: Auto-update?
@@ -56,15 +49,15 @@ class TaskManager(customtkinter.CTk):
         temporary = [task for task, spec in data['temporary'].items() if spec['active']]
         return constant, temporary
 
-    def display_tasks(self):
+    def add_frames(self):
         ConstantFrame(master=self, tasks=self.constant)
         TemporaryFrame(master=self, names=self.temporary)
         EntryFrame(master=self)
+        LogFrame(self)
 
     def update(self):
-        self.log_frame.display_log()
         self.constant, self.temporary = self.get_tasks()
-        self.display_tasks()
+        self.add_frames()
 
     def display_buttons(self):
         exit_button = customtkinter.CTkButton(self, text='Exit (Esc)', command=self.exit, fg_color='firebrick')

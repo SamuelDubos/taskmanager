@@ -11,5 +11,7 @@ class Loader:
 loader = Loader()
 LOG_PATH = loader.log_path
 TASKS_PATH = loader.tasks_path
+FONT1 = ('TkDefaultFont', 13, 'normal')
+FONT2 = ('Helvetica', 14, 'bold')
 
-__all__ = ['LOG_PATH', 'TASKS_PATH']
+__all__ = ['LOG_PATH', 'TASKS_PATH', 'FONT1', 'FONT2']
