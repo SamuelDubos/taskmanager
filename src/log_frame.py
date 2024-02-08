@@ -9,6 +9,7 @@ class LogFrame(customtkinter.CTkFrame):
         super().__init__(master)
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
+        self.grid_rowconfigure(1, weight=1)
         self.values = ['Today', 'Yesterday', 'Last week', 'All']
         self.variable = customtkinter.StringVar(value=self.values[0])
 
