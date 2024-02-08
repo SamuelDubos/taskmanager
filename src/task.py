@@ -1,7 +1,7 @@
 import customtkinter
 import datetime
-from variables import *
 import json
+from .loader import *
 
 
 class Task:
@@ -24,7 +24,6 @@ class Task:
             label = f'{self.name} ({self.key.upper()})'
         button = customtkinter.CTkButton(master=self.frame, text=label, command=self.action)
         button.grid(row=self.row, column=self.column, padx=10, pady=self.pady, sticky='news')
-
 
     def action(self):
         text = f'{datetime.datetime.now()} | {self.name}'

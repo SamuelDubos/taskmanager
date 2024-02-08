@@ -1,6 +1,6 @@
 import customtkinter
-from variables import *
 import datetime
+from ..loader import *
 
 
 class LogFrame(customtkinter.CTkFrame):

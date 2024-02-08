@@ -1,10 +1,12 @@
 import customtkinter
 import os
-from variables import *
 import json
 
-from frame import ConstantFrame, TemporaryFrame, EntryFrame
-from log_frame import LogFrame
+from src.frames.constant import ConstantFrame
+from src.frames.temporary import TemporaryFrame
+from src.frames.entry import EntryFrame
+from src.frames.log import LogFrame
+from src.loader import *
 
 
 class TaskManager(customtkinter.CTk):
@@ -31,7 +33,7 @@ class TaskManager(customtkinter.CTk):
 
     @staticmethod
     def set_path():
-        for path in [LOG_PATH, TASKS_PATH]:
+        for path in [TASKS_PATH, LOG_PATH]:
             if not os.path.exists(path):
                 with open(path, 'w') as _:
                     pass
