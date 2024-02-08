@@ -17,9 +17,9 @@ class TaskManager(customtkinter.CTk):
         self.geometry('880x420')
         self.title('TaskManager')
 
+        self.set_data()
         self.log_frame = None
         self.set_configuration()
-        self.set_data()
         self.constant, self.temporary = self.get_tasks()
         self.display_buttons()
         self.add_frames()
@@ -33,10 +33,19 @@ class TaskManager(customtkinter.CTk):
 
     @staticmethod
     def set_data():
-        for path in [TASKS_PATH, LOG_PATH]:
-            if not os.path.exists(path):
-                with open(path, 'w') as _:
-                    pass
+        if not os.path.exists(DATA_PATH):
+            os.mkdir(DATA_PATH)
+        if not os.path.exists(LOG_PATH):
+            with open(LOG_PATH, 'w') as _:
+                pass
+        if not os.path.exists(TASKS_PATH):
+            with open(TASKS_PATH, 'w') as file:
+                data = {"temporary": {"TemporaryTask": {"active": True}},
+                        "constant": {"Night": {"key": "n"},
+                                     "Break": {"key": "b"},
+                                     "Work": {"key": "w"},
+                                     "Meal": {"key": "m"}}}
+                json.dump(data, file, indent=4)
 
     def bind_keys(self):
         self.bind('<Alt-u>', lambda event: self.update())
