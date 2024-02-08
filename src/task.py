@@ -18,10 +18,13 @@ class Task:
         self.add_button()
 
     def add_button(self):
-        button = customtkinter.CTkButton(master=self.frame, text=self.name, command=self.action)
-        button.grid(row=self.row, column=self.column, padx=10, pady=self.pady, sticky='news')
+        label = self.name
         if self.key is not None:
             self.master.bind(sequence=f'<Control-{self.key}>', func=lambda event: self.action())
+            label = f'{self.name} ({self.key.upper()})'
+        button = customtkinter.CTkButton(master=self.frame, text=label, command=self.action)
+        button.grid(row=self.row, column=self.column, padx=10, pady=self.pady, sticky='news')
+
 
     def action(self):
         text = f'{datetime.datetime.now()} | {self.name}'

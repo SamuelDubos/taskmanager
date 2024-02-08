@@ -22,8 +22,7 @@ class ConstantFrame(customtkinter.CTkFrame):
 
     def add_tasks(self):
         for i, (name, key) in enumerate(self.tasks, start=1):
-            label = f'{name} ({key.upper()})'
-            Task(master=self.master, frame=self, name=label, row=i, column=0, key=key, pady=10)
+            Task(master=self.master, frame=self, name=name, row=i, column=0, key=key, pady=10)
 
 
 class TemporaryFrame(customtkinter.CTkScrollableFrame):
