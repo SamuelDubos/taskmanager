@@ -1,6 +1,6 @@
 import customtkinter
-import os
 import json
+import os
 
 from src.frames.constant import ConstantFrame
 from src.frames.temporary import TemporaryFrame
@@ -17,6 +17,7 @@ class TaskManager(customtkinter.CTk):
         self.geometry('880x420')
         self.title('TaskManager')
 
+        self.log_frame = None
         self.set_configuration()
         self.set_data()
         self.constant, self.temporary = self.get_tasks()
@@ -53,11 +54,13 @@ class TaskManager(customtkinter.CTk):
         ConstantFrame(master=self, tasks=self.constant)
         TemporaryFrame(master=self, names=self.temporary)
         EntryFrame(master=self)
-        LogFrame(self)
+        self.log_frame = LogFrame(self)
 
     def update(self):
         self.constant, self.temporary = self.get_tasks()
-        self.add_frames()
+        ConstantFrame(master=self, tasks=self.constant)
+        TemporaryFrame(master=self, names=self.temporary)
+        self.log_frame.display_log()
 
     def display_buttons(self):
         exit_button = customtkinter.CTkButton(self, text='Exit (Esc)', command=self.exit, fg_color='firebrick')
@@ -68,7 +71,7 @@ class TaskManager(customtkinter.CTk):
 
     @staticmethod
     def exit():
-        print('Exiting Program')
+        print('Exiting Program...')
         exit()
 
 
