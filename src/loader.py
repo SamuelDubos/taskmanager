@@ -3,13 +3,13 @@ import os
 
 class Loader:
 
-    def __init__(self):
-        self.log_path = os.path.join('data', 'log')
-        self.tasks_path = os.path.join('data', 'tasks.json')
-        self.data_path = os.path.join('data')
+    def __init__(self, folder):
+        self.log_path = os.path.join(folder, 'log')
+        self.tasks_path = os.path.join(folder, 'tasks.json')
+        self.data_path = os.path.join(folder)
 
 
-loader = Loader()
+loader = Loader('data')
 LOG_PATH = loader.log_path
 TASKS_PATH = loader.tasks_path
 DATA_PATH = loader.data_path

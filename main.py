@@ -69,6 +69,7 @@ class TaskManager(customtkinter.CTk):
         self.constant, self.temporary = self.get_tasks()
         ConstantFrame(master=self, tasks=self.constant)
         TemporaryFrame(master=self, names=self.temporary)
+        EntryFrame(master=self)
         self.log_frame.display_log()
 
     def display_buttons(self):
