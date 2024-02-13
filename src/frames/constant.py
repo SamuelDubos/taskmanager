@@ -7,6 +7,7 @@ class ConstantFrame(customtkinter.CTkFrame):
 
     def __init__(self, master, tasks, title='Constant Tasks', row=0, column=2):
         super().__init__(master)
+        self.master = master
         self.tasks = tasks
         self.title = title
         self.row = row

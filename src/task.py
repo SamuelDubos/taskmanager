@@ -30,6 +30,7 @@ class Task:
         print(text)
         with open(LOG_PATH, 'a') as log:
             log.write(text + '\n')
+        self.master.update_frames()
 
     def deactivate(self):
         with open(TASKS_PATH, 'r+') as file:
@@ -37,3 +38,5 @@ class Task:
             data['temporary'][self.name]['active'] = False
             file.seek(0)
             json.dump(data, file, indent=4)
+        self.master.update_frames()
+

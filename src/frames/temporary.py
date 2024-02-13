@@ -6,11 +6,11 @@ from ..task import Task
 class TemporaryFrame(customtkinter.CTkScrollableFrame):
 
     def __init__(self, master, names, title='Temporary Tasks', row=0, column=0):
+        super().__init__(master)
         self.master = master
         self.names = names
         self.title = title
 
-        super().__init__(self.master)
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
         self.set_title()
@@ -23,6 +23,6 @@ class TemporaryFrame(customtkinter.CTkScrollableFrame):
 
     def add_tasks(self):
         for i, name in enumerate(self.names, start=1):
-            task = Task(self.master, self, name, i, 0, pady=5)
+            task = Task(master=self.master, frame=self, name=name, row=i, column=0, pady=5)
             button = customtkinter.CTkButton(master=self, text='Done', width=65, command=task.deactivate)
             button.grid(row=i, column=1, padx=(0, 10), pady=5)

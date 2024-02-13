@@ -23,7 +23,7 @@ class LogFrame(customtkinter.CTkFrame):
         today = datetime.datetime.now().strftime('%Y-%m-%d')
         yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')
         last_week_date = (datetime.datetime.now() - datetime.timedelta(days=7)).strftime('%Y-%m-%d')
-        with open(LOG_PATH, 'r') as log:
+        with open(LOG_PATH, 'r', encoding='utf-8') as log:
             for line in log.readlines():
                 date = datetime.datetime.strptime(line.split(' | ')[0], '%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d')
                 if self.variable.get() == 'Today':
@@ -41,11 +41,6 @@ class LogFrame(customtkinter.CTkFrame):
 
     def add_buttons(self):
         for i, value in enumerate(self.values):
-            radiobutton = customtkinter.CTkRadioButton(self, text=value, value=value, variable=self.variable)
+            radiobutton = customtkinter.CTkRadioButton(self, text=value, value=value,
+                                                       variable=self.variable, command=self.display_log)
             radiobutton.grid(row=0, column=i, padx=10, pady=(10, 0), sticky='news')
-
-    def get(self):
-        return self.variable.get()
-
-    def set(self, value):
-        self.variable.set(value)

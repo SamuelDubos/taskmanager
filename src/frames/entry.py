@@ -8,6 +8,7 @@ class EntryFrame(customtkinter.CTkFrame):
 
     def __init__(self, master):
         super().__init__(master)
+        self.master = master
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
         self.grid(row=3, column=1, padx=(0, 0), pady=(10, 10), sticky='news')
@@ -23,3 +24,4 @@ class EntryFrame(customtkinter.CTkFrame):
             file.seek(0)
             json.dump(data, file, indent=4)
             file.truncate()
+        self.master.update_frames()
