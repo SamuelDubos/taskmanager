@@ -9,7 +9,7 @@ class Loader:
         self.data_path = os.path.join(folder)
 
 
-loader = Loader('data')
+loader = Loader('data_perso')
 LOG_PATH = loader.log_path
 TASKS_PATH = loader.tasks_path
 DATA_PATH = loader.data_path

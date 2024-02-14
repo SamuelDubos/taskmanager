@@ -7,6 +7,7 @@ from src.frames.temporary import TemporaryFrame
 from src.frames.entry import EntryFrame
 from src.frames.log import LogFrame
 from src.loader import *
+from analysis import Analyzer
 
 
 class TaskManager(customtkinter.CTk):
@@ -49,7 +50,7 @@ class TaskManager(customtkinter.CTk):
                 json.dump(data, file, indent=4)
 
     def bind_keys(self):
-        self.bind('<Alt-u>', lambda event: self.update_frames())
+        self.bind('<Alt-a>', lambda event: self.analyze())
         self.bind('<Escape>', lambda event: self.exit())
         self.bind('<Return>', lambda event: self.entry_frame.add_task())
 
@@ -77,14 +78,18 @@ class TaskManager(customtkinter.CTk):
     def display_buttons(self):
         exit_button = customtkinter.CTkButton(self, text='Exit (Esc)', command=self.exit, fg_color='firebrick')
         exit_button.grid(row=3, column=2, padx=(10, 10), pady=(10, 10), sticky='news')
-        update_button = customtkinter.CTkButton(self, text='Update (Alt+U)',
-                                                command=self.update_frames, fg_color='olivedrab')
-        update_button.grid(row=3, column=0, padx=(10, 10), pady=(10, 10), sticky='news')
+        analyze_button = customtkinter.CTkButton(self, text='Analyze (Alt+A)',
+                                                 command=self.analyze, fg_color='olivedrab')
+        analyze_button.grid(row=3, column=0, padx=(10, 10), pady=(10, 10), sticky='news')
 
     @staticmethod
     def exit():
         print('Exiting Program...')
         exit()
+
+    @staticmethod
+    def analyze():
+        Analyzer()
 
 
 if __name__ == '__main__':
