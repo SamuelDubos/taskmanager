@@ -1,0 +1,27 @@
+{
+    "temporary": {
+        "TemporaryTask": {
+            "active": true
+        },
+        "I have no idea": {
+            "active": true
+        },
+        "New stuff": {
+            "active": true
+        }
+    },
+    "constant": {
+        "Night": {
+            "key": "n"
+        },
+        "Break": {
+            "key": "b"
+        },
+        "Work": {
+            "key": "w"
+        },
+        "Meal": {
+            "key": "m"
+        }
+    }
+}

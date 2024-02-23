@@ -25,3 +25,23 @@ Here are the current features:
 To get started:
 - install customtkinter using `pip install customtkinter`
 - run `python main.py`
+
+## Architecture
+```
+├── data
+│   ├── log
+│   └── tasks.json
+├── img
+│   └── main.png
+├── main.py
+├── analysis.py
+├── README.md
+└── src
+    ├── frames
+    │   ├── constant.py
+    │   ├── entry.py
+    │   ├── log.py
+    │   └── temporary.py
+    ├── loader.py
+    └── task.py
+```

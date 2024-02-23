@@ -15,7 +15,7 @@ class TaskManager(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
-        self.geometry('880x420')
+        self.geometry('880x450')
         self.title('TaskManager')
 
         self.set_data()
@@ -56,7 +56,7 @@ class TaskManager(customtkinter.CTk):
 
     @staticmethod
     def get_tasks():
-        with open(TASKS_PATH, 'r') as file:
+        with open(TASKS_PATH, 'r', encoding='utf-8') as file:
             data = json.load(file)
         constant = [[task, spec['key']] for task, spec in data['constant'].items()]
         temporary = [task for task, spec in data['temporary'].items() if spec['active']]
@@ -87,9 +87,9 @@ class TaskManager(customtkinter.CTk):
         print('Exiting Program...')
         exit()
 
-    @staticmethod
-    def analyze():
-        Analyzer()
+    def analyze(self):
+        period = self.log_frame.variable.get()
+        Analyzer(period)
 
 
 if __name__ == '__main__':

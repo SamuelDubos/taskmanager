@@ -28,7 +28,7 @@ class Task:
     def action(self):
         text = f'{datetime.datetime.now()} | {self.name}'
         print(text)
-        with open(LOG_PATH, 'a') as log:
+        with open(LOG_PATH, 'a', encoding='utf-8') as log:
             log.write(text + '\n')
         self.master.update_frames()
 
