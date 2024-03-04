@@ -2,12 +2,6 @@
     "temporary": {
         "TemporaryTask": {
             "active": true
-        },
-        "I have no idea": {
-            "active": true
-        },
-        "New stuff": {
-            "active": true
         }
     },
     "constant": {
