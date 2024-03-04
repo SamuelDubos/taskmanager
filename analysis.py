@@ -34,15 +34,25 @@ class Analyzer:
             period = True
         return self.df[period & late & daytime]
 
+    @staticmethod
+    def make_autopct(values):
+        def my_autopct(pct):
+            val = int(pct * sum(values) / 100)
+            return f'{pct:.1f}% ({val:d} min)'
+        return my_autopct
+
     def main(self):
         activity_durations = self.conditioned.groupby('name')['duration'].sum()
-        plt.figure(figsize=(10, 6))
-        activity_durations.plot(kind='barh', color='skyblue')
-        plt.xlabel('Duration (minutes)')
-        plt.ylabel('Activities')
-        plt.title('Repartition')
-        plt.grid(axis='x', )
-        step = 15 if self.period in ['Today', 'Yesterday'] else 60
-        plt.xticks(range(0, int(activity_durations.max()) + 1, step))
-        plt.tight_layout()
+        activity_durations.plot(kind='pie', ylabel='', autopct=self.make_autopct(activity_durations))
+        # activity_durations.plot(kind='barh')
+        # plt.xlabel('Duration (minutes)')
+        # plt.ylabel('Activities')
+        # plt.title('Repartition')
+        # plt.grid(axis='x', )
+        # step = 15 if self.period in ['Today', 'Yesterday'] else 60
+        # plt.xticks(range(0, int(activity_durations.max()) + 1, step))
         plt.show()
+
+
+if __name__ == '__main__':
+    Analyzer()
