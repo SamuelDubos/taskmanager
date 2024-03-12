@@ -1,6 +1,12 @@
 {
     "temporary": {
-        "TemporaryTask": {
+        "Random task": {
+            "active": true
+        },
+        "Market": {
+            "active": false
+        },
+        "oui": {
             "active": true
         }
     },

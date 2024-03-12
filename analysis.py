@@ -22,18 +22,18 @@ class Analyzer:
     def conditioned(self):
         daytime = self.df.name != 'Night'
         late = self.df.start.dt.hour > 6
-        day = self.df.start.dt.day
-        now = datetime.datetime.now().day
+        day = self.df.start.dt.date  # Modification ici
+        now = datetime.datetime.now().date()  # Modification ici
         if self.period == 'Today':
             period = day == now
         elif self.period == 'Yesterday':
-            period = day == now - 1
+            period = day == now - datetime.timedelta(days=1)  # Modification ici
         elif self.period == 'Last week':
-            period = (now - 7 <= day) & (day <= now)
+            period = (now - datetime.timedelta(days=7) <= day) & (day <= now)  # Modification ici
         else:
             period = True
         return self.df[period & late & daytime]
-
+    
     @staticmethod
     def make_autopct(values):
         def my_autopct(pct):
@@ -42,6 +42,7 @@ class Analyzer:
         return my_autopct
 
     def main(self):
+        print(self.conditioned)
         activity_durations = self.conditioned.groupby('name')['duration'].sum()
         activity_durations.plot(kind='pie', ylabel='', autopct=self.make_autopct(activity_durations))
         # activity_durations.plot(kind='barh')
