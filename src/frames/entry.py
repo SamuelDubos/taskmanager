@@ -18,10 +18,11 @@ class EntryFrame(customtkinter.CTkFrame):
         add_button.grid(row=0, column=2, padx=10, pady=10)
 
     def add_task(self):
-        with open(TASKS_PATH, 'r+') as file:
-            data = json.load(file)
-            data['temporary'][self.entry.get()] = {'active': True}
-            file.seek(0)
-            json.dump(data, file, indent=4)
-            file.truncate()
+        if self.entry.get() != '':
+            with open(TASKS_PATH, 'r+') as file:
+                data = json.load(file)
+                data['temporary'][self.entry.get()] = {'active': True}
+                file.seek(0)
+                json.dump(data, file, indent=4)
+                file.truncate()
         self.master.update_frames()
