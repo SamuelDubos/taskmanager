@@ -16,7 +16,7 @@ set by the user.
 ## Features
 Here are the current features:
 - Activate temporary tasks
-- De-active temporary tasks
+- De-active temporary [tasks](src/task.py#L35)
 - Add tasks to the `log` file
 - Select the desired time period
 - Use shortcuts to press buttons
